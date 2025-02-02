@@ -20,26 +20,22 @@ class AuthController {
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: LoginDto = req.body;
-      const { cookie, findUser } = await authService.login(userData);
-
-      res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: findUser, message: 'login' });
+      const { tokenData, findUser } = await authService.login(userData);
+      res.status(200).json({ data: findUser, message: 'login', token: tokenData.token });
     } catch (error) {
       next(error);
     }
   };
 
-  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public async verifyUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const userData: IUser = req.user;
-      const logOutUserData: IUser = await authService.logout(userData);
-
-      res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
-      res.status(200).json({ data: logOutUserData, message: 'logout' });
+      const userData = req.user;
+      res.status(200).json({ data: userData, message: 'User Verified Successfully!' });
     } catch (error) {
       next(error);
     }
-  };
+  }
+
   public async sendResetPasswordMail(request: Request, response: Response, next: NextFunction) {
     try {
       const email = request.body.email ? String(request.body.email) : '';
