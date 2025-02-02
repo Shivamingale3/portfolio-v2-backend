@@ -12,6 +12,7 @@ class ProfileRoute implements Routes {
 
   private initializeRoutes() {
     this.router.get(`${this.path}/get`, profileController.getProfile);
+    this.router.post(`${this.path}/update`, profileController.updateProfile);
   }
 }
 
