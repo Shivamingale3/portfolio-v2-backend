@@ -15,7 +15,17 @@ class ProjectService {
     }
   }
 
-  public async updateProject(updateProjectData: IProject) {
+  public async getById(projectId: string) {
+    try {
+      const project = await this.projectsCollection.findById(projectId).lean();
+      if (!project) throw new HttpException(400, 'Project not found');
+      return project;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async updateById(updateProjectData: IProject) {
     try {
       const filter: any = {
         _id: updateProjectData.id,

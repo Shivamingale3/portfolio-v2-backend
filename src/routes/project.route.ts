@@ -1,4 +1,4 @@
-import profileController from '@/controllers/profile.controller';
+import projectController from '@/controllers/project.controller';
 import { Routes } from '@interfaces/routes.interface';
 import { Router } from 'express';
 
@@ -11,7 +11,9 @@ class ProjectRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/get-all`, profileController.getProfile);
+    this.router.get(`${this.path}/get-all`, projectController.getAll);
+    this.router.get(`${this.path}/get-by-id`, projectController.getById);
+    this.router.post(`${this.path}/update-by-id`, projectController.updateById);
   }
 }
 
