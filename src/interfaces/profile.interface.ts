@@ -2,6 +2,7 @@ export interface IProfile {
   firstName?: string;
   lastName?: string;
   jobTitle?: string;
+  profilePicture?: string;
   profileDescription?: string;
   socials?: ISocial[];
   homeId?: number;

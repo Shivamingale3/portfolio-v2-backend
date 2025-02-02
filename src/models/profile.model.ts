@@ -22,14 +22,15 @@ const profileSchema: Schema = new Schema({
     type: [],
     required: true,
   },
+  profilePicture: {
+    type: String,
+    required: true,
+  },
   homeId: {
     type: Number,
     required: true,
   },
 });
-
-// Set up a TTL index on the `expiry` field
-profileSchema.index({ expiry: 1 }, { expireAfterSeconds: 0 });
 
 const profileModel = model<IProfile & Document>('profile', profileSchema);
 
